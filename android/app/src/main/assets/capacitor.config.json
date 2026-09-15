@@ -1,0 +1,12 @@
+{
+	"appId": "com.tileoasis.sanctuarymatch",
+	"appName": "Tile Oasis: Sanctuary Match",
+	"webDir": "dist",
+	"server": {
+		"androidScheme": "https",
+		"cleartext": false
+	},
+	"plugins": {
+		"AdMob": {}
+	}
+}
