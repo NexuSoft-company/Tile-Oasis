@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tile Oasis — Play Store Screenshots Showcase (8 Screens per Device)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #060e17; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <header class="text-center mb-8 border-b border-slate-800 pb-6">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
+        <span>★ 32 High-Resolution Google Play Store Screenshots ★</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight">Tile Oasis: Sanctuary Match</h1>
+      <p class="text-slate-400 mt-2 text-sm md:text-base max-w-2xl mx-auto">
+        8 professionally designed marketing screenshots across 4 device categories (32 high-resolution images). Featuring realistic 3D vector cubes (no raw unicode text/numbers), beveled depth, and localized copy.
+      </p>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mt-6" id="filter-tabs">
+        <button onclick="filterCategory('mobile')" class="tab-btn px-5 py-2.5 rounded-xl font-bold text-sm bg-teal-500 text-slate-950 transition-all" data-target="mobile">
+          📱 Mobile Phone (1080x1920)
+        </button>
+        <button onclick="filterCategory('tablet-7inch')" class="tab-btn px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all" data-target="tablet-7inch">
+          💊 7" Tablet (1200x1920)
+        </button>
+        <button onclick="filterCategory('tablet-10inch')" class="tab-btn px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all" data-target="tablet-10inch">
+          🖥️ 10" Tablet (1600x2560)
+        </button>
+        <button onclick="filterCategory('laptop')" class="tab-btn px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all" data-target="laptop">
+          💻 Laptop / Chromebook (1920x1080)
+        </button>
+      </div>
+    </header>
+
+    <!-- Grid of Screenshots -->
+    <div id="screenshots-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  </div>
+
+  <script>
+    const screens = [
+      { file: "screenshot_1_home.png", label: "1. Home Sanctuary (Hero)" },
+      { file: "screenshot_2_gameplay.png", label: "2. 3D Triple Match Action" },
+      { file: "screenshot_3_pyramid.png", label: "3. Diamond Pyramid Puzzle" },
+      { file: "screenshot_4_shop.png", label: "4. Sanctuary Shop & Vault" },
+      { file: "screenshot_5_support.png", label: "5. 10 Global Languages FAQ" },
+      { file: "screenshot_6_zen.png", label: "6. Relaxing Zen Gameplay" },
+      { file: "screenshot_7_boosters.png", label: "7. Boosters & Combo Surge" },
+      { file: "screenshot_8_victory.png", label: "8. 3-Star Victory Rewards" },
+    ];
+
+    let activeCat = 'mobile';
+
+    function filterCategory(cat) {
+      activeCat = cat;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-target') === cat) {
+          btn.className = 'tab-btn px-5 py-2.5 rounded-xl font-bold text-sm bg-teal-500 text-slate-950 transition-all';
+        } else {
+          btn.className = 'tab-btn px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all';
+        }
+      });
+      render();
+    }
+
+    function render() {
+      const container = document.getElementById('screenshots-grid');
+      container.innerHTML = screens.map(s => {
+        const url = `/screenshots/${activeCat}/${s.file}`;
+        return `
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden flex flex-col p-4 shadow-xl">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-black text-teal-400 tracking-wider uppercase">${s.label}</span>
+              <a href="${url}" download="${activeCat}_${s.file}" class="text-xs font-bold bg-teal-500/20 text-teal-300 hover:bg-teal-500 hover:text-slate-950 px-2 py-1 rounded-lg transition-colors inline-flex items-center space-x-1">
+                <span>⬇ Download</span>
+              </a>
+            </div>
+            <a href="${url}" target="_blank" class="block bg-slate-950 rounded-xl overflow-hidden border border-slate-800/80 group">
+              <img src="${url}" alt="${s.label}" class="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy" />
+            </a>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-slate-500">
+              <span>public/screenshots/${activeCat}/</span>
+              <a href="${url}" target="_blank" class="text-teal-400 hover:underline">Full Res ↗</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    render();
+  </script>
+</body>
+</html>
